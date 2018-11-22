@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="学习笔记">学习笔记</h1>
+<h2 id="摘要介绍">摘要介绍</h2>
+<p><code>Ant Design Pro</code> 是一个基于<code>Ant Design</code>搭建起来的模板项目。它提供了两个主要布局：<code>BasicLayout</code>、<code>UserLayout</code>，在布局基础上制作了20多个基础页面，详情见<code>模板</code>介绍段落。</p>
+<p><code>Ant Design Pro</code> 主体代码使用<a href="http://es6.ruanyifeng.com/">ES2015+</a>语法规则，因此在阅读源码时遇到不理解的语法，可前往相关主页进行查询。在学习笔记中，除非遇到关键的语法点，否则不对语法进行额外说明。</p>
+<p>在接下来，将按照以下几个方面介绍项目的相关代码。 ......</p>
+<h2 id="目录结构">目录结构</h2>
+<pre><code>├── mock                     # 本地模拟数据
+├── node_modules             # 依赖库
+├── public
+│   ├── favicon.ico          # Favicon
+│   └── index.html           # HTML 入口模板
+├── src
+│   ├── common               # 应用公用配置，如导航信息
+│   ├── components           # 业务通用组件
+│   ├── e2e                  # 集成测试用例
+│   ├── layouts              # 通用布局
+│   ├── models               # dva model
+│   ├── routes               # 业务页面入口和常用模板
+│   ├── services             # 后台接口服务
+│   ├── utils                # 工具库
+│   ├── g2.js                # 可视化图形配置
+│   ├── polyfill.js          # 兼容性垫片
+│   ├── theme.js             # 主题配置
+│   ├── index.js             # 应用入口
+│   ├── index.less           # 全局样式
+│   └── router.js            # 路由入口
+├── tests                    # 测试工具
+├── .editorconfig            # 编辑器配置
+├── .eslintrc                # js代码检测工具
+├── .ga                      # 未知
+├── .gitignore               # git版本配置
+├── .roadhogrc               # roadhog配置
+├── .roadhogrc.mock.js       # roadhog的模拟配置
+├── .stylelintrc             # css代码审查配置
+├── .travis.yml              # travis持续构建工具配置
+├── package.json             # web前端项目配置文件
+├── README.md
+└──
+</code></pre>
+<h3 id="项目中的几项配置文件">项目中的几项配置文件</h3>
+<blockquote>
+<p><strong>Q</strong>:为什么要用<code>编辑器配置</code>？</p>
+<p><strong>A</strong>:当多人共同开发一个项目的时候，往往会出现大家用不同编辑器的情况。就前端开发者来说，有人喜欢 Sublime，有人喜欢 Webstorm , 也有人喜欢 Atom，还有人喜欢 Vim，HBuilder 等等。各种不同编程语言的开发者喜欢各种不同的编辑器。问题来了，如何让使用不同编辑器的开发者在共同开发一个项目时“无痛”地遵循编码规范(编码风格)？</p>
+<hr />
+<p><strong>Q</strong>：怎么用<code>编辑器配置</code>？</p>
+<p><strong>A</strong>：在项目根创建一个名为 .editorconfig 的文件。安装与编辑器对应的 EditorConfig 插件。详情参考<a href="http://www.jianshu.com/p/712cea0ef70e">编辑器配置</a></p>
+<hr />
+<p><strong>Q</strong>：<code>代码检查工具</code>是什么？</p>
+<p><strong>A</strong>：js的代码检查工具是ESLint，css的代码检查工具是StyleLint，相应的配置项保存在<code>.eslintrc</code>和<code>.stylelintrc</code>文件中。一般来说，都不需要进行修订，深入学习可参考<a href="http://www.jianshu.com/p/2bcdce1dc8d4">js代码检测工具</a>、<a href="http://www.jianshu.com/p/1d974ae2a7dc">css代码审查配置</a></p>
+<hr />
+<p><strong>Q</strong>：<code>git</code>是什么？</p>
+<p><strong>A</strong>：<code>git</code>是版本控制工具，类似的工具还有<code>svn</code>。有关<code>.gitignore</code>的配置参考<a href="http://www.cnblogs.com/haiq/archive/2012/12/26/2833746.html">git版本配置</a></p>
+<hr />
+<p><strong>Q</strong>：什么是<code>持续集成系统</code>？</p>
+<p><strong>A</strong>：对个人而言，就是让你的代码在提交到远程——这里是GitHub——后，立即自动编译，并且在失败后可以自动给你发邮件的东西。当然，除了编译，还能做自动化测试、自动部署等。对团队或企业而言，这意味着更多的东西，是敏捷开发的一种践行。<code>travis</code>是一种持续集成工具，企业中还有用<code>jenkins</code>的。有关<code>travis</code>的更多介绍见<a href="http://www.jianshu.com/p/c80b37f775a0">travis持续构建工具配置</a></p>
+<hr />
+<p><strong>Q</strong>：什么是<code>roadhog</code>？</p>
+<p><strong>A</strong>：这是一个 cli 工具，提供 <code>server</code>、 <code>build</code> 和 <code>test</code> 三个命令，分别用于本地调试和构建。更多介绍见<a href="https://www.npmjs.com/package/mg-roadhog">roadhog配置</a></p>
+<hr />
+<p><strong>Q</strong>：web前端项目的配置是package？</p>
+<p><strong>A</strong>：每个web前端项目的根目录下面，一般都有一个 <code>package.json</code> 文件，定义了这个项目所需要的各种模块，以及项目的配置信息（比如名称、版本、许可证等元数据）。更多介绍见<a href="http://javascript.ruanyifeng.com/nodejs/packagejson.html">web前端项目配置文件</a></p>
+<hr />
+<p><strong>Q</strong>：最关键，<strong>初学者应着重关心哪些</strong>？</p>
+<p><strong>A</strong>：初学者应将精力放在<code>package.json</code>、<code>roadhog</code>这两者上，其他的都可以忽略掉。</p>
+</blockquote>
+<h4 id="package.json摘要介绍">package.json摘要介绍</h4>
+<p><code>npm install</code>命令根据这个<code>package.json</code>配置文件，自动下载所需的模块，也就是配置项目所需的运行和开发环境。<code>package.json</code>文件就是一个JSON对象，该对象的每一个成员就是当前项目的一项设置。</p>
+<p><code>scripts</code>指定了运行脚本命令的npm命令行缩写，比如start指定了运行<code>npm run start</code>时，所要执行的命令。</p>
+<p>进行前端开发时可能经常用到的几个命令是：<code>npm run start</code>（进行开发调试，缩写成<code>npm start</code>）、<code>npm run build</code>（进行构建打包）。当然也可以尝试<code>package.json</code>中给出的其他命令，如：<code>npm run analyze</code>、<code>npm run test</code>等，甚至也可以自己在<code>package.json</code>中添加需要的命令。</p>
+<p><code>dependencies</code>字段指定了项目运行所依赖的模块，<code>devDependencies</code>指定项目开发所需要的模块。它们都指向一个对象。该对象的各个成员，分别由模块名和对应的版本要求组成，表示依赖的模块及其版本范围。更多信息参见<a href="http://javascript.ruanyifeng.com/nodejs/packagejson.html#toc2">web前端项目配置文件</a></p>
+<p><code>babel</code>配置项，其实是有关<code>babel</code>的配置内容，写在<code>package.json</code>中实际上是一种省略，也可以写在<code>.babelrc</code>文件中。</p>
+<p><code>lint-staged</code>是与代码检查有关的配置项，<code>jest</code>是与单元测试有关的配置项。这两项的配置可以参考<a href="http://www.jianshu.com/p/a656a5459e73">jest</a>、<a href="https://segmentfault.com/a/1190000009546913">lint</a>。这两项与写业务逻辑代码没有直接关联。</p>
+<h4 id="roadhog摘要介绍">roadhog摘要介绍</h4>
+<p><code>roadhog</code> 是一个 cli 工具，提供 <code>server</code>、 <code>build</code> 和 <code>test</code> 三个命令，分别用于本地调试和构建，并且提供了特别易用的 <code>mock</code> 功能。命令行体验和 <code>create-react-app</code> 一致，配置略有不同，比如默认开启 <code>css modules</code>，然后还提供了 <code>JSON</code> 格式的配置方式。</p>
+<p>重点介绍<code>roadhog</code>有关的几个配置项，主要是在<code>ant design pro</code>的代码中用到了这些配置项。</p>
+<h5 id="entry">entry</h5>
+<p>指定 <code>webpack</code> 入口文件，支持 <code>glob</code> 格式。</p>
+<p>如果你的项目是多页类型，会希望把 <code>src/pages</code> 的文件作为入口。可以这样配：</p>
+<pre><code>&quot;entry&quot;: &quot;src/pages/\*.js&quot;</code></pre>
+<h5 id="env">env</h5>
+<p>针对特定的环境进行配置。<code>server</code> 的环境变量是 <code>development</code>，<code>build</code> 的环境变量是 <code>production</code>。</p>
+<p>比如：</p>
+<pre><code>&quot;extraBabelPlugins&quot;: [&quot;transform-runtime&quot;],
+&quot;env&quot;: {
+  &quot;development&quot;: {
+    &quot;extraBabelPlugins&quot;: [&quot;dva-hmr&quot;]
+  }
+}</code></pre>
+<p>这样，开发环境下的 <code>extraBabelPlugins</code> 是 <code>[&quot;transform-runtime&quot;, &quot;dva-hmr&quot;]</code>，而生产环境下是 <code>[&quot;transform-runtime&quot;]</code>。</p>
+<pre><code>&quot;env&quot;: {
+  &quot;development&quot;: {
+    &quot;extraBabelPlugins&quot;: [
+      &quot;dva-hmr&quot;,
+      &quot;transform-runtime&quot;,
+      &quot;transform-decorators-legacy&quot;,
+      &quot;transform-class-properties&quot;,
+      [&quot;import&quot;, { &quot;libraryName&quot;: &quot;antd&quot;, &quot;style&quot;: true }]
+    ]
+  },
+  &quot;production&quot;: {
+    &quot;extraBabelPlugins&quot;: [
+      &quot;transform-runtime&quot;,
+      &quot;transform-decorators-legacy&quot;,
+      &quot;transform-class-properties&quot;,
+      [&quot;import&quot;, { &quot;libraryName&quot;: &quot;antd&quot;, &quot;style&quot;: true }]
+    ]
+  }
+}</code></pre>
+<p>在这段代码中，开发环境和生产环境分别配置，其中开发环境使用了<code>dva-hmr</code>插件，</p>
+<h5 id="externals">externals</h5>
+<p>配置 <code>webpack</code> 的 <code>externals</code> 属性。</p>
+<h5 id="theme">theme</h5>
+<p>配置主题，实际上是配 <code>less</code> 的 <code>modifyVars</code>。支持 <code>Object</code> 和文件路径两种方式的配置。</p>
+<p>比如：</p>
+<pre><code>&quot;theme&quot;: {
+  &quot;@primary-color&quot;: &quot;#1DA57A&quot;
+}</code></pre>
+<p>或者，</p>
+<pre><code>&quot;theme&quot;: &quot;./node_modules/abc/theme-config.js&quot;</code></pre>
+<p>这里有 <a href="https://github.com/dvajs/dva-example-user-dashboard/commit/d6da33b3a6e18eb7f003752a4b00b5a660747c31">如何配置 antd theme 的例子</a> 。</p>
+<h4 id="babel">babel</h4>
+<p>上述多处提到了<code>babel</code>，因此有必要针对<code>babel</code>进行了解。用官方的用语：<code>Babel 是一个 JavaScript 编译器。今天就来用下一代 JavaScript 语法写代码吧！</code>。换句话说：<code>Babel</code>是一个广泛使用的转码器，可以将<code>ES6</code>代码转为<code>ES5</code>代码，从而在现有环境执行。</p>
+<p>既然如此，接下来重点说说<code>package.json</code>、<code>.roadhogrc</code>中有关<code>babel</code>的配置内容：</p>
+<p><code>presets</code>字段用来设定转码规则，如<code>package.json</code>中</p>
+<pre><code>&quot;babel&quot;: {
+  &quot;presets&quot;: [
+    &quot;env&quot;,
+    &quot;react&quot;
+  ],
+  ...
+}</code></pre>
+<p>就是设定了<code>env</code>、<code>react</code>两个转码规则。其中<code>env</code>指的是<a href="https://www.npmjs.com/package/babel-preset-env">babel-preset-env</a>，这是一个新的 <code>preset</code>，可以根据配置的目标运行环境（<code>environment</code>）自动启用需要的 <code>babel</code> 插件。<code>react</code>指的是<a href="https://www.npmjs.com/package/babel-preset-react">babel-preset-react</a>，主要是针对所有<code>react</code>插件的转码规则。</p>
+<p><code>plugins</code>配置项不用多说，从名称就能看出来，就是<code>babel</code>的一系列插件，与<code>ant design pro</code>的<code>package.json</code>相关的两个插件在这里：<a href="https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy">transform-decorators-legacy</a>、<a href="https://www.npmjs.com/package/babel-plugin-transform-class-properties">transform-class-properties</a>。而在<code>.roadhogrc</code>配置文件中也额外配置了<code>babel</code>的插件：<a href="http://babeljs.io/docs/plugins/transform-runtime/">transform-runtime</a>、<a href="https://www.npmjs.com/package/babel-plugin-dva-hmr">dva-hmr</a>、<a href="http://blog.csdn.net/qq_35809834/article/details/72670220">babel-plugin-import</a>。其中唯一需要多说一点的是按需加载插件<code>babel-plugin-import</code>，它可以针对<a href="http://npm.taobao.org/package/babel-plugin-antd">antd</a>插件中的部分元素样式进行按需加载。</p>
+<p><strong><em>其实不用更多了解相关内容，只需知道如此配置之后，1.开发者可以使用最新的<code>ES6</code>书写代码；2.放心使用react相关插件；3.在进行<code>run start</code>或<code>run build</code>时，代码能够自动转换成<code>ES5</code>代码，从而在浏览器中执行。</em></strong></p>
+<h3 id="项目中的几个目录">项目中的几个目录</h3>
+<p>其中<code>mock</code>是本地模拟数据目录、<code>node_modules</code>是依赖库目录、<code>public</code>是入口目录、<code>src</code>是源码目录、<code>tests</code>是测试工具目录。在进行<code>npm run build</code>之后还会生成（默认情况下）<code>dist</code>目录，这是生成的生产环境下的运行代码目录。其他目录不必多说，只需要核心了解<code>src</code>的目录组成即可。</p>
+<pre><code>├── src
+│   ├── common               # 应用公用配置，如导航信息
+│   ├── components           # 业务通用组件
+│   ├── e2e                  # 集成测试用例
+│   ├── layouts              # 通用布局
+│   ├── models               # dva model
+│   ├── routes               # 业务页面入口和常用模板
+│   ├── services             # 后台接口服务
+│   ├── utils                # 工具库
+│   ├── g2.js                # 可视化图形配置
+│   ├── polyfill.js          # 兼容性垫片
+│   ├── theme.js             # 主题配置
+│   ├── index.js             # 应用入口
+│   ├── index.less           # 全局样式
+│   └── router.js            # 路由入口</code></pre>
+<h4 id="index.js-应用入口">index.js 应用入口</h4>
+<p>这个页面核心就是<code>import</code>、<code>const</code>这两个命令，至于其是否是<code>ES6</code>的暂且不管。</p>
+<h5 id="import">import</h5>
+<p>语法介绍见<a href="http://es6.ruanyifeng.com/#docs/module#import-命令">这里</a>。在<code>index.js</code>这个文件中核心就是加载并执行了一系列<code>module</code>，并引入了<code>dva</code>、<code>models</code>两个变量。</p>
+<blockquote>
+<p>有关ES6的语法推荐查询阮一峰翻译的<a href="http://es6.ruanyifeng.com/">ECMAScript 6 入门</a>，后续不再赘述。</p>
+</blockquote>
+<h5 id="const">const</h5>
+<p>语法介绍见<a href="http://es6.ruanyifeng.com/#docs/let#const-命令">这里</a>。这里就是声明了一个变量<code>app</code>。</p>
+<h5 id="其他">其他</h5>
+<p>至于<code>index</code>页面中的<code>const app = dva({})</code>、<code>models.forEach((m)=&gt;{app.model(m);});</code>、<code>app.router(require('./router'));</code>、<code>app.start('#root');</code>这几句代码暂时不理会，待梳理调用流程时再进行解析。</p>
+<p>简单说一下，由于这里是入口，所有这些内容都是用来进行全局设置的，至于其如何实现？如何调用？这些是细节内容，在概略浏览代码时，可以不关注这些点。</p>
+<h4 id="router.js-路由入口">router.js 路由入口</h4>
+<p>这个页面核心就是定义路由策略。并引出了<code>export</code>命令。</p>
+<h5 id="export">export</h5>
+<p>语法介绍见<a href="http://es6.ruanyifeng.com/#docs/module#export-default-命令">这里</a>。这里是将定义好的函数<code>RouterConfig</code>默认输出出去。</p>
+<h5 id="定义路由策略">定义路由策略</h5>
+<p>通过<code>function</code>关键字定义了<code>RouterConfig</code>函数，其输入参数是<code>{history}</code>对象，返回值是一个页面，其由<code>LocaleProvider</code>、<code>Router</code>、<code>Switch</code>、<code>Route</code>、<code>Redirect</code>标签（component）组成的。其中每个component从哪里来，怎么操作暂时先不去关注这些细节，在模仿实现的时候可以有样学样。</p>
+<p>核心认识到通过<code>/user</code>路径可以访问到<code>UserLayout</code>，通过<code>/</code>可以访问到<code>BasicLayout</code>，默认情况下（<code>Redirect</code>)，会跳转到<code>/</code>。具体代码就是如下这段：</p>
+<pre><code>&lt;Switch&gt;
+  &lt;Route path=&quot;/user&quot; component={UserLayout} /&gt;
+  &lt;Route path=&quot;/&quot; component={BasicLayout} /&gt;
+  &lt;Redirect to=&quot;/&quot; /&gt;
+&lt;/Switch&gt;</code></pre>
+<h4 id="其他文件">其他文件</h4>
+<p><code>theme.js</code>主要是主题配置、<code>index.less</code>主要是进行了全局样式设置、<code>polyfill.js</code>是兼容性垫片、<code>g2.js</code>是可视化图形的配置。一般情况下，如果不需要修改全局样式、主题修改、对g2进行配置，不进行额外的浏览器兼容性考虑，这些文件可以不进行深入了解。</p>
+<p>其实对这些文件的加载过程是其使用的脚手架完成的，暂且不深入了解脚手架及<code>webpack</code>相关的实现机制。</p>
+<h4 id="dva">dva</h4>
+<p>先来看看<code>dva</code>的介绍：<em><code>dva</code> 是基于现有应用架构 (<code>redux</code> + <code>react-router</code> + <code>redux-saga</code> 等)的一层轻量封装，没有引入任何新概念，全部代码不到 100 行。<code>dva</code> 是 framework，不是 library，类似 emberjs，会很明确地告诉你每个部件应该怎么写，这对于团队而言，会更可控。另外，除了 <code>react</code> 和 <code>react-dom</code> 是 <code>peerDependencies</code> 以外，<code>dva</code> 封装了所有其他依赖。<code>dva</code> 实现上尽量不创建新语法，而是用依赖库本身的语法，比如 <code>router</code> 的定义还是用 <code>react-router</code> 的 <code>JSX</code> 语法的方式(dynamic config 是性能的考虑层面，之后会支持)。</em> 引用自<a href="https://github.com/dvajs/dva/issues/1">这里</a>，github的中文介绍在<a href="https://github.com/dvajs/dva/blob/master/README_zh-CN.md">这里</a></p>
+<p>这又引出了一系列新的概念：<code>redux</code>、<code>react</code>、<code>react-router</code>、<code>react-dom</code>等。暂且先不管这些新的概念是什么，只需要知道<code>dva</code>是一套框架（framework），尽量不引入新的语法，只是明确了每个部件该怎么写。</p>
+<h4 id="redux">redux</h4>
+<p>由于<code>dva</code>是一层皮，其内涵是<code>redux</code>、<code>react</code>等。那就了解下<code>redux</code>是什么？<code>redux</code>的中文文档从<a href="http://cn.redux.js.org">这里</a>找到。用几句话概括就是：<em><code>Redux</code> 是 <code>JavaScript</code> 状态容器，提供可预测化的状态管理。可以让你构建一致化的应用，运行于不同的环境（客户端、服务器、原生应用），并且易于测试。不仅于此，它还提供 超爽的开发体验，比如有一个时间旅行调试器可以编辑后实时预览。</em></p>
+<p>从阅读其介绍就可以获知：<em><code>Redux</code> 试图让 <code>state</code> 的变化变得可预测</em>，它就是管理<code>state</code>的解决方案。至于如何使用<code>redux</code>、它具有哪些核心概念、如何操作<code>redux</code>中的函数、使用它有哪些注意事项。可以通过学习<code>redux</code>获知。这应该是2天工作量的就可以完成的学习任务。</p>
+<p>由于后续进行开发时会反复使用到<code>redux</code>相关的概念，这一章节必须进行扩展学习，可以安排后续的学习任务。但为不影响主线，暂且放下，进行整体思路梳理。</p>
+<h4 id="react及其他">react及其他</h4>
+<p><code>React</code> 是一个采用声明式，高效而且灵活的用来构建用户界面的框架。因此，有必要对<code>react</code>的基础逻辑进行理解，此处需要安排2天的学习任务，了解<code>react</code>的基础知识。中文的教程在<a href="https://doc.react-china.org/">这里</a></p>
+<p><code>React Router</code> 是完整的 <code>React</code> 路由解决方案。<code>React Router</code> 保持 UI 与 URL 同步。它拥有简单的 API 与强大的功能例如代码缓冲加载、动态路由匹配、以及建立正确的位置过渡处理。中文教程在<a href="https://react-guide.github.io/react-router-cn/">这里</a></p>
+<p><code>React Dom</code>提供了针对dom的方法，具体参考<a href="https://doc.react-china.org/docs/react-dom.html">这里</a>。</p>
+<h4 id="各目录及相互关系">各目录及相互关系</h4>
+<p><code>common</code>是应用公共配置，如导航信息；<code>components</code>是业务通用组件；<code>layouts</code>是通用布局；<code>models</code>是<code>dva model</code>；<code>routes</code>是业务页面入口和常用模板；<code>services</code>是后台接口服务；<code>utils</code>是工具库；<code>e2e</code>是集成测试用例。</p>
+<p>从入口开始看起，一步步抽丝剥茧看看各个组件之间是怎样进行调用的。</p>
+<p>首先在<code>index.js</code>中加载了<code>models</code>中的所有<code>model</code>并进行了注册。其中<code>app.model()</code>函数来自于<code>dva</code>的用法，而且<code>model</code>的概念也是<code>dva</code>中的概念，详见<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#model">这里</a>，而所有的<code>model</code>均来自于<code>./models</code>目录。之后又通过<code>app.router()</code>语句注册了路由表，详细介绍见<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#approuter-history-app---routerconfig">这里</a>。<code>index.js</code>文件的最后调用了 <code>app.start('#root');</code>，这句话的含义是启动应用，详细介绍见<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#appstartselector">这里</a>。</p>
+<p>在启动应用之后，开发者可以通过浏览器向服务器发起请求访问，以获取页面和数据。不详细展开路由过程，依照路由字面含义。在访问<code>/</code>时，会被路由到<code>BasicLayout</code>布局页面（此处参见<code>router.js</code>）。</p>
+<h5 id="布局页面">布局页面</h5>
+<p>布局页面在开始的位置<code>import</code>了一系列的组件（component），定义了一些<code>const</code>（常量），先不去管它。接下来出现了诡异的<code>class</code>关键字，这有中<code>java</code>代码乱入的感觉，没关系。这是<code>ES6</code>的新特性，参见<a href="http://es6.ruanyifeng.com/#docs/class">这里</a>，简单理解起来可以将之看作对象。这个<code>class</code>继承自<code>React.PureComponent</code>，在<code>class</code>中定义了静态变量、构造方法，以及一系列的内部方法，值得注意的是方法只有被调用时才会执行，因此<code>class</code>中的一系列方法都可以视为声明，而不会顺序执行。直到最后出现了一个<code>render</code>方法，这个方法会在渲染组件时被调用（此处请参考<a href="https://doc.react-china.org/docs/components-and-props.html">react组件相关</a>），因此我们关心页面显示相关逻辑就主要是关注<code>render</code>这个方法。</p>
+<p>在对<code>render</code>方法展开说之前，先把<code>BasicLayout</code>最后的<code>export</code>说完。<code>export default</code>是<code>ES6</code>相关语法，前面已有介绍，指默认输出。<code>connect</code>是<code>react-redux</code>中的一个api，是用来连接 <code>React</code> 组件与 <code>Redux store</code>的，其用法详情见<a href="http://cn.redux.js.org/docs/react-redux/api.html">这里</a>，只需知道其返回的仍是原<code>React</code>组件（当前事例中是<code>BasicLayout</code>），并与已有的状态信息<code>state</code>相关联。</p>
+<p>再展开说<code>render</code>。1.在<code>render</code>中，用到了一系列来自<code>antd</code>的组件如：<code>Layout</code>、<code>Menu</code>等，其相关的介绍不展开，可以到<code>antd</code>网站参考其相关教程。2.当然也需要用到<code>dva</code>封装好的有关路由的一系列组件，如：<code>Link</code>、<code>Route</code>、<code>Redirect</code>、<code>Switch</code>。3.同样也用到了<code>ant design pro</code>中创建的组件，如：<code>HeaderSearch</code>、<code>NoticeIcon</code>、<code>GlobalFooter</code>。如果深入进去了解每个组件的实现原理，会不可避免陷入泥潭，对此只需阅读<code>antd</code>、<code>dva</code>的相关api，明确该组件是什么、怎么做就好，接下来就是实践中掌握。</p>
+<p><code>BasicLayout</code>布局的<code>render</code>中，核心布局就是左边栏（<code>Sider</code>，参考<code>antd</code>的<a href="https://ant.design/components/layout-cn/#Layout.Sider">Layout.Sider</a>）、顶部（<code>Header</code>，参考<a href="https://ant.design/components/layout-cn/#Layout">Layout.Header</a>、内容区（<code>Content</code>，参考<a href="https://ant.design/components/layout-cn/#Layout">Layout.Content</a>。在内容区除了整体的可更换的页面以外还有自创建的脚部区域（<code>GlobalFooter</code>），其中左边栏、顶部使用了<code>ant design pro</code>样例中自创建的组件，包括：搜索框（<code>HeaderSearch</code>）、通知提醒框（<code>NoticeIcon</code>），以及<code>antd</code>中已经封装好的通用模板：菜单栏（<code>Menu</code>）、下拉菜单（<code>Dropdown</code>）、头像（<code>Avatar</code>）、加载中（<code>Spin</code>）、图标（<code>Icon</code>）、标签（<code>Tag</code>）、全局提示（<code>message</code>）。如上所述，有关<code>antd</code>、<code>dva</code>中已经封装好的通用模板，应当阅读相关的api，而不应该重新造一遍轮子。</p>
+<blockquote>
+<p>整个布局页面大体就是这个样子，在<code>ant design pro</code>中还提供了另一个页面布局就是<code>UserLayout</code>。如果实际开发中还需要其他的页面布局，就需要自己撰写，大体来说就要研究清楚<code>BasicLayout</code>页面中的各方面细节，并能够再依照需求完成创建。</p>
+</blockquote>
+<h5 id="redirect-路由">Redirect 路由</h5>
+<p>在<code>BasicLayout</code>页面布局中，<code>Content</code>区是通过</p>
+<pre><code>{
+  getRouteData(&#39;BasicLayout&#39;).map(item =&gt;
+    (
+      &lt;Route
+        exact={item.exact}
+        key={item.path}
+        path={item.path}
+        component={item.component}
+      /&gt;
+    )
+  )
+}
+&lt;Redirect to=&quot;/dashboard/analysis&quot; /&gt;</code></pre>
+<p>完成页面加载。有关<code>Redirect</code>、<code>Route</code>的详细介绍在<a href="http://react-guide.github.io/react-router-cn/docs/API.html">这里</a>或<a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html">这里</a>。先来看看<code>getRouteData</code>函数干了什么。</p>
+<p><code>getRouteData</code>函数来自于<code>../utils/utils</code>文件，通过对<code>utils.js</code>查看，可以看出该函数引用了<code>../common/nav</code>文件，也就是<code>nav.js</code>，结合<code>nav.js</code>文件进行梳理。综合三个位置可以分析得到如下过程：</p>
+<ol style="list-style-type: decimal">
+<li>在<code>nav.js</code>中通过<code>import...from...</code>引入了<code>layouts</code>、<code>routes</code>中的布局页面和业务页面（常用模板）。由此可知 <strong>如需添加新的页面可以参照这个格式引入</strong>。</li>
+<li>在<code>nav.js</code>中定义了<code>data</code>，以<code>json</code>的格式定义了菜单目录结构，并将引入的页面（1.）以变量的形式引入进来。这个目录内在含义可以后续深入了解，需要注意的是：<strong>在添加新页面时应参照这个json格式添加</strong>。</li>
+<li>通过<code>export default</code>关键字把<code>data</code>输出出来。</li>
+<li><code>utils.js</code>中，<code>import navData from '../common/nav';</code>引入了刚刚定义的data并重命名为navData。</li>
+<li><code>utils.js</code>中的函数<code>getRouteData</code>中，用到了数组对象中的函数<code>some</code>（<a href="http://lzw.me/pages/ecmascript/#359">官方中译文档</a>、<a href="http://www.zhangxinxu.com/wordpress/2013/04/es5%E6%96%B0%E5%A2%9E%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95/#some">解读参考</a>）、<code>filter</code>（<a href="http://lzw.me/pages/ecmascript/#362">官方中译文档</a>、<a href="http://www.zhangxinxu.com/wordpress/2013/04/es5%E6%96%B0%E5%A2%9E%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95/#filter">解读参考</a>）以及<a href="http://www.css88.com/doc/lodash/">lodash</a>的<code>cloneDeep</code>。</li>
+<li>依照字面意思来理解，<code>getRouteData</code>做了两件事：1.对输入参数<code>path</code>，进行检查，如果检查不通过返回<code>null</code>（检查含义主要是确保<code>path</code>是一个有效<code>layout</code>，同时<code>layout</code>的<code>children</code>不为空）；2.对检查通过的<code>path</code>，获取该布局下的所有数据，并将数据转换成数组，数组的每个元素是被称为<code>item</code>，该<code>item</code>具有<code>path</code>属性、<code>exact</code>属性、<code>component</code>属性、<code>children</code>属性。</li>
+<li>解释下<code>item</code>的四个属性：<code>path</code>属性会赋值给外层调用中<code>Route</code>的<code>path</code>属性；<code>component</code>属性会赋值给外层调用中<code>component</code>属性；<code>children</code>属性是用来控制如何进行递归的；<code>exact</code>属性会赋值给外层调用中<code>exact</code>属性。</li>
+<li><code>getRouteData</code>就获得了具有<code>path</code>、<code>component</code>等属性的元素数组。</li>
+<li>在<code>BasicLayout</code>中调用了<code>getRouteData</code>函数并对返回数组逐项拆解，组成<code>Route</code>。</li>
+<li>通过以上过程就将<code>nav</code>中的<code>json</code>格式配置转换成了页面中的跳转路由。当页面中的地址栏中出现<code>/一级目录/二级目录</code>时，就可以通过<code>Route</code>找到对应的<code>component</code>并进行加载。</li>
+</ol>
+<p>这样一来，<code>layouts</code>、<code>routes</code>、<code>nav.js</code>、<code>utils.js</code>之间进行路由的链路就清晰了。由于我们是在实践中学习，对一些实现细节还不必过度深究，只需要知道页面是怎样串起来的，以及为什么改变<code>nav.js</code>中的目录样式就能够操作路由，同时能够结合实际的路由需要对路由进行必要整改就可以动手执行了。</p>
+<h5 id="menu-导航菜单">Menu 导航菜单</h5>
+<p>导航菜单顾名思义就是左侧栏中的内容，在<code>BasicLayout</code>中就是这段代码</p>
+<pre><code>&lt;Menu
+  theme=&quot;dark&quot;
+  mode=&quot;inline&quot;
+  {...menuProps}
+  onOpenChange={this.handleOpenChange}
+  selectedKeys={this.getCurrentMenuSelectedKeys()}
+  style={{ margin: &#39;16px 0&#39;, width: &#39;100%&#39; }}
+&gt;
+  {this.getNavMenuItems(this.menus)}
+&lt;/Menu&gt;</code></pre>
+<p>核心函数封装成了<code>getNavMenuItems</code>，其操作的对象是<code>menus</code>属性，而在构造方法中对<code>menus</code>的值进行了初始化。综合来看梳理成如下过程：</p>
+<ol style="list-style-type: decimal">
+<li>在<code>BasicLayout</code>的构造方法中，通过<code>getNavData</code>方法获取到<code>nav.js</code>中定义好的<code>data</code>。</li>
+<li><code>data</code>本身是数组，通过<code>reduce</code>（<a href="http://lzw.me/pages/ecmascript/#363">官方中译文档</a>、<a href="http://www.zhangxinxu.com/wordpress/2013/04/es5%E6%96%B0%E5%A2%9E%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95/#reduce">解读参考</a>）方法和concat（<a href="http://lzw.me/pages/ecmascript/#346">官方中译文档</a>）方法将数组规约成一个新的数组。新的数组是原数组中每个元素的<code>children</code>数组再拼装在一起组成的。换句话说，<code>nav</code>中定义的<code>data</code>，第一层级是布局（layout），布局的children是页面集合（第二层级），页面集合的children是业务页面（第三层级）。此处的转换就是将layout去掉，拼装成页面集合（第二层级）的数组。</li>
+<li>在<code>getNavMenuItems</code>函数中，对<code>menus</code>进行操作。对每一项（也就是页面集合）转换成一个<code>Menu.Item</code>。这是可以理解的。</li>
+<li><code>getNavMenuItems</code>函数从上到下核心做了5件事：1.判断有没有可显示的<code>name</code>，如果没有将返回<code>null</code>；2.给<code>item</code>制定<code>path</code>，也就是跳转路径，采用父子路径拼装的思路完成；3.如果存在<code>children</code>且存在<code>name</code>不为空，构造子菜单<code>SubMenu</code>；4.明确可显示的图标；5.拼装成<code>Menu.Item</code></li>
+<li>在拼装<code>Item</code>过程中，涉及到了跳转路径<code>path</code>的构造、可显示的<code>name</code>、<code>icon</code>。</li>
+</ol>
+<p>结合路由和导航就可以理解整个页面左侧导航栏的动态显示、通过导航栏的点击实现页面的路由过程。</p>
+<h5 id="布局页面的其他关注点">布局页面的其他关注点</h5>
+<p>在<code>BasicLayout</code>中还引入了<code>styles</code>，这是一个<code>less</code>文件。 &gt; <code>Less</code> 是一门 CSS 预处理语言，它扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展。</p>
+<p>因此只需要把<a href="http://less.bootcss.com/">less</a>当成是基本的样式对待就好。虽然它有不少新的特性，但大多数情况下，styles都是出现在某个组件的<code>className</code>位置，以引用的方式加入进来（css的外联）。</p>
+<p>有关<a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html">Link</a>、<a href="https://ant.design/components/icon-cn/">Icon</a>等框架提供的组件，需要自行查阅相关API，<code>HeaderSearch</code>、<code>NoticeIcon</code>、<code>GlobalFooter</code>的用法在后续提到<code>components</code>的用法时再行展开。</p>
+<h4 id="动态获取数据">动态获取数据</h4>
+<p>在<code>BasicLayout</code>页面中进行动态加载数据就涉及到<code>React</code>的<a href="http://www.ruanyifeng.com/blog/2015/03/react.html">组件生命周期</a>，相关资料也可参考<a href="https://doc.react-china.org/docs/state-and-lifecycle.html">这里</a>，总之在<code>BasicLayout</code>页面中用到的就是<code>componentDidMount</code>函数进行数据动态加载的。这个函数核心只是调用了<code>dispatch</code>：</p>
+<pre><code>componentDidMount() {
+  this.props.dispatch({
+    type: &#39;user/fetchCurrent&#39;,
+  });
+}</code></pre>
+<p>此时就要引出前面提到的<code>dva</code>、<code>redux</code>相关的概念了。上文中提到了<code>app.model()</code>这个函数及其<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#model">参考</a>。接下来把整体逻辑串起来：</p>
+<ol style="list-style-type: decimal">
+<li>通过<code>app.model()</code>方法，对<code>model</code>进行注册，这个<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#model">model概念</a>来自于<code>dva</code>。</li>
+<li><code>model</code>中的<a href="http://leonshi.com/redux-saga-in-chinese/docs/basics/DeclarativeEffects.html">effects部分</a>，包装自<code>redux-saga</code>。</li>
+<li><code>this.props.dispatch</code>方法源自<code>redux</code>，见<a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html">这里</a>。</li>
+<li>在<code>model</code>注册时，其实就是注册了一系列的监听器，等待着被触发。</li>
+<li>在<code>dispatch</code>时，会接受一个 <code>Action</code> 对象作为参数，将它发送出去。关于redux的数据流程参见<a href="http://cn.redux.js.org/docs/basics/DataFlow.html">这里</a>。</li>
+<li>以<code>'user/fetchCurrent'</code>为例，依照<code>dva</code>的逻辑会找到<code>model</code>中的<code>user</code>命名空间，并在其下找到<code>fetchCurrent</code>方法。因此，<code>dispatch</code>之后会触发<code>models/user.js</code>中的<code>fetchCurrent</code>方法。</li>
+<li>又通过<code>import</code>加载了<code>services/user.js</code>中的<code>queryCurrent</code>异步调用方法。</li>
+<li>在<code>services/user.js</code>中，<code>import</code>了<code>utils/request.js</code>，并调用了其中的<code>request</code>请求。并传递请求路径为<code>'/api/currentUser'</code></li>
+<li>最终在<code>utils/request.js</code>中找到了<code>request</code>函数，其核心调用了<code>dva</code>的<code>fetch</code>函数进行url请求。</li>
+<li><code>dva</code>中的<code>fetch</code>包装自<code>isomorphic-fetch</code>，说明见<a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md#dvafetch">这里</a>。</li>
+<li>至此将发起<code>fetch</code>请求，向服务端请求相应的数据。以<code>queryCurrent</code>为例，将利用url：<code>'/api/currentUser'</code>。</li>
+<li>在<code>.roadhogrc.mock.js</code>中配置了代理，同时可以找到<code>/api/currentUser</code>请求返回的数据。后续不再赘述。</li>
+</ol>
+<p>通过上述分析，可见关键点在1.<code>model</code>的撰写和注册；2.<code>dispatch</code>的正确调用；3.后台业务请求的封装。这涉及到了<code>models</code>、<code>services</code>目录内容及<code>utils/request.js</code>（由于这个文件主要完成的是底层封装，基本可以不去关注。以添加新的后台请求为例，需要完成：1.在<code>services</code>目录下定义好请求的url以及函数名称；2.将该后台请求添加到对应的<code>model</code>中。以添加新的数据加载为例，需要完成：1.在<code>models</code>目录下中定义新的<code>model</code>，注意<code>namespace</code>、<code>state</code>、<code>effects</code>、<code>reducers</code>、<code>subscriptions</code>的合理使用；2.如果涉及到后台请求数据需要引入<code>services</code>；3.在合理的事件处发起<code>dispatch</code>。需要注意的是<code>dispatch</code>的目录要与<code>model</code>的<code>namespace</code>相一致。</p>
+<h4 id="components目录">components目录</h4>
+<p>这个目录其实是抽象出来的一系列的业务通用组件。详细内容不再展开。包括<code>BasicLayout</code>中已经提到的<code>HeaderSearch</code>、<code>NoticeIcon</code>、<code>GlobalFooter</code>组件，实际上都是自行封装的结果。</p>
+<h4 id="e2e目录">e2e目录</h4>
+<p>这个目录是端到端测试的相关目录，相关信息可以从<a href="http://sentsin.com/web/658.html">这里</a>了解一些。 由于不在主线学习范围之内暂不理会。</p>
+<h3 id="相关链接整理">相关链接整理</h3>
+<h4 id="很有用的单独说一遍">很有用的单独说一遍</h4>
+<p><a href="https://github.com/dvajs/dva">dva：github项目</a><br> <a href="https://doc.react-china.org/">React中文文档</a><br> <a href="http://www.ruanyifeng.com/blog/2015/03/react.html">React 入门实例教程（阮一峰）</a><br> <a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html">Redux 入门教程（一）：基本用法（阮一峰）</a><br> <a href="http://cn.redux.js.org/index.html">Redux 中文文档</a><br> <a href="http://leonshi.com/redux-saga-in-chinese/index.html">Redux-saga 中文文档</a><br> <a href="https://zhuanlan.zhihu.com/p/26485702">Redux 三重境</a><br> <a href="http://es6.ruanyifeng.com/">ECMAScript 6 入门</a><br> <a href="http://react-guide.github.io/react-router-cn/index.html">React Router 中文文档</a><br> <a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html">React Router 使用教程（阮一峰）</a><br> <a href="https://ant.design/docs/spec/introduce-cn">Ant Design 指引</a><br></p>
+<h4 id="全">全</h4>
+<p><a href="https://github.com/dvajs/dva">dva：github项目</a><br> <a href="https://github.com/sorrycc/blog/issues/1">dva：React+Redux最佳实践</a><br> <a href="https://github.com/dvajs/dva/blob/master/README_zh-CN.md">dva：中文Readme</a><br> <a href="https://github.com/dvajs/dva/blob/master/docs/API_zh-CN.md">dva：中文API</a><br> <a href="http://www.jianshu.com/p/69f13e9123d9">一起学react (1) 10分钟 让你dva从入门到精通</a><br> <a href="https://juejin.im/entry/5852184b128fe1006b5454c6">初识 Dva</a><br> <a href="http://www.zhimengzhe.com/Javascriptjiaocheng/325894.html">dva源码解析（一）</a><br> <a href="http://www.codesec.net/view/449505.html">dva 入门：手把手教你写应用</a><br> <br> <a href="https://doc.react-china.org/">React中文文档</a><br> <a href="https://doc.react-china.org/docs/state-and-lifecycle.html">React：State&amp;生命周期</a><br> <a href="https://doc.react-china.org/docs/components-and-props.html">React：组件 &amp; Props</a><br> <a href="http://www.ruanyifeng.com/blog/2015/03/react.html">React 入门实例教程（阮一峰）</a><br> <a href="https://segmentfault.com/a/1190000006741060">React PureComponent源码解析</a><br> <a href="http://www.cnblogs.com/accordion/p/4501118.html">ReactJS分析之入口函数render</a><br> <a href="http://www.cnblogs.com/Unknw/p/6431375.html">谈一谈创建React Component的几种方式</a><br> <a href="https://doc.react-china.org/docs/react-dom.html">React Dom</a><br> <br> <a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html">Redux 入门教程（一）：基本用法（阮一峰）</a><br> <a href="http://www.jianshu.com/p/9873d4ccb891">Redux 关于react-redux中的connect用法介绍及原理解析</a><br> <a href="http://cn.redux.js.org/index.html">Redux 中文文档</a><br> <a href="http://www.jianshu.com/p/faee4de8e092">Redux 数据流</a><br> <a href="http://leonshi.com/redux-saga-in-chinese/index.html">Redux-saga 中文文档</a><br> <a href="https://segmentfault.com/a/1190000007261052">Redux-saga 实践总结</a><br> <a href="https://zhuanlan.zhihu.com/p/26485702">Redux 三重境</a><br> <a href="http://blog.csdn.net/fengyinchao/article/details/51566555">实例讲解基于 React+Redux 的前端开发流程</a><br> <br> <a href="http://es6.ruanyifeng.com/">ECMAScript 6 入门</a><br> <a href="http://www.zhangxinxu.com/wordpress/?p=3220">ES5中新增的Array方法详细说明</a><br> <a href="http://lzw.me/pages/ecmascript/">Ecma标准</a><br> <a href="http://www.css88.com/doc/lodash/">Lodash 中文文档</a><br> <a href="http://cnodejs.org/topic/5231a630101e574521e45ef8">exports 和 module.exports 的区别</a><br> <a href="http://www.jianshu.com/p/edaf43e9384f">ES6：export default 和 export 区别</a><br> <a href="http://www.51xuediannao.com/javascript/fetchdyf_1142.html">fetch的用法</a><br> <a href="http://blog.csdn.net/xiangzhihong8/article/details/52366380">React 语法之let和const命令</a><br> <a href="https://segmentfault.com/a/1190000007022442">ES6展开运算符</a><br> <br> <a href="https://reacttraining.com/react-router/">React Router</a><br> <a href="http://react-guide.github.io/react-router-cn/index.html">React Router 中文文档</a><br> <a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html">React Router 使用教程（阮一峰）</a><br> <a href="https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Redirect.md">React Router Redirect</a><br> <a href="https://www.npmjs.com/package/path-to-regexp">path-to-regexp</a><br> <a href="https://www.villainhr.com/page/2017/05/13/Path-to-RegExp%20%E4%BD%BF%E7%94%A8">Path-to-RegExp 使用</a><br> <br> <a href="https://ant.design/docs/spec/introduce-cn">Ant Design 指引</a><br> <a href="https://ant.design/docs/react/introduce-cn">Ant Design of React</a><br> <a href="https://pro.ant.design/docs/getting-started">Ant Design Pro教程</a><br> <a href="https://segmentfault.com/q/1010000007899143">自定义主题开发中，修改theme.js需要重启</a><br> <a href="https://www.zhihu.com/question/33629737/answer/148582778">如何评价 Ant Design 这个项目（一个设计语言）？</a><br> <a href="https://segmentfault.com/a/1190000010416622">Ant Design源码分析（一）：Icon组件</a><br> <br> <a href="https://www.npmjs.com/package/roadhog">roadhog</a><br> <a href="http://less.bootcss.com/">less 快速入门</a><br> <a href="http://blog.csdn.net/turingty/article/details/49851543">Less简介及简单用法</a><br> <a href="https://web.archive.org/web/20170707232725/http://www.ruanyifeng.com/blog/2016/01/babel.html">Babel 入门教程（阮一峰，<s>不知何故他已经在自己的博客中删除了，只能从archive找到</s>）</a><br> <a href="https://segmentfault.com/a/1190000006237659">stylelint初体验</a><br> <a href="https://segmentfault.com/a/1190000009600026">JS/React 开发者的 Atom 终极配置</a><br> <a href="http://sentsin.com/web/658.html">自动化e2e测试 -- WebDriverJS，Jasmine和Protractor</a><br> <a href="http://www.cnblogs.com/cqhaibin/p/6581350.html">Webpack单元测试，e2e测试</a><br> <a href="https://www.zhihu.com/question/51764943">怎么为大中型的vue.js项目编写e2e测试？</a><br> <a href="http://blog.csdn.net/crper/article/details/52196675">Atom编辑器折腾记_(23)加快React开发的插件汇总</a><br> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch API</a><br> <a href="http://www.cnblogs.com/zhuzhenwei918/p/7231418.html">react&amp;webpack使用css、less &amp;&amp; 安装原则 --- 从根本上解决问题。</a><br> <a href="https://doc.webpack-china.org/loaders/less-loader/">less-loader</a><br> <a href="https://doc.webpack-china.org/">webpack-中文文档</a><br> <a href="http://www.jianshu.com/p/c401e417bd8a">React中的DOM操作</a><br> <a href="http://www.jianshu.com/p/712cea0ef70e">编辑器配置</a><br> <a href="http://www.jianshu.com/p/2bcdce1dc8d4">js代码检测工具</a><br> <a href="http://www.jianshu.com/p/1d974ae2a7dc">css代码审查配置</a><br> <a href="http://www.cnblogs.com/haiq/archive/2012/12/26/2833746.html">git版本配置</a><br> <a href="http://www.jianshu.com/p/c80b37f775a0">travis持续构建工具配置</a><br> <a href="https://www.npmjs.com/package/mg-roadhog">roadhog配置</a><br> <a href="http://javascript.ruanyifeng.com/nodejs/packagejson.html">web前端项目配置文件</a><br> <a href="http://www.jianshu.com/p/a656a5459e73">jest</a><br> <a href="https://segmentfault.com/a/1190000009546913">lint</a><br> <a href="https://github.com/dvajs/dva-example-user-dashboard/commit/d6da33b3a6e18eb7f003752a4b00b5a660747c31">如何配置 antd theme 的例子</a><br> <a href="https://www.npmjs.com/package/babel-plugin-dva-hmr">dva-hmr</a><br> <a href="http://blog.csdn.net/qq_35809834/article/details/72670220">babel-plugin-import</a><br> <a href="https://www.npmjs.com/package/babel-preset-env">babel-preset-env</a><br> <a href="https://www.npmjs.com/package/babel-preset-react">babel-preset-react</a><br> <a href="https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy">transform-decorators-legacy</a><br> <a href="https://www.npmjs.com/package/babel-plugin-transform-class-properties">transform-class-properties</a><br> <a href="http://babeljs.io/docs/plugins/transform-runtime/">transform-runtime</a><br> <a href="http://npm.taobao.org/package/babel-plugin-antd">antd</a><br></p>
+</body>
+</html>
