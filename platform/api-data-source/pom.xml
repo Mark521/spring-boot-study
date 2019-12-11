@@ -10,8 +10,8 @@
     <groupId>mark</groupId>
     <artifactId>api-data-source</artifactId>
     <version>${model.version}</version>
-    <name>api-data-source</name>
-    <description>api-data-source</description>
+    <name>ApiDataSource</name>
+    <description>ApiDataSource</description>
 
     <properties>
         <java.version>1.8</java.version>
