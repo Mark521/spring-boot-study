@@ -1,0 +1,8 @@
+mark.component.dbdialect.db2.DB2DQLDialect
+mark.component.dbdialect.mysql.MySQLDQLDialect
+mark.component.dbdialect.oracle.OracleDQLDialect
+mark.component.dbdialect.oracle.Oracle8iDQLDialect
+mark.component.dbdialect.oracle.Oracle9iDQLDialect
+mark.component.dbdialect.oracle.Oracle10gDQLDialect
+mark.component.dbdialect.postgresql.PostgreSQLDQLDialect
+mark.component.dbdialect.gaussdb.GaussDB100DQLDialect

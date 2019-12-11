@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <syntax>NUMERIC ABS(NUMERIC)</syntax>
+        <name>ABS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ABS returns the absolute value of n.
+            This function takes as an argument any numeric data type or any nonnumeric data type that can be implicitly converted to a numeric data type. The function returns the same data type as the numeric data type of the argument.
+        </description>
+        <examples>
+            <example>
+                ABS(-15)
+            </example>
+            <example>
+                ABS(-15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ACOS(NUMERIC)</syntax>
+        <name>ACOS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ACOS returns the arc cosine of n. The argument n must be in the range of -1 to 1, and the function returns a value in the range of 0 to pi, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ACOS(.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ASIN(NUMERIC)</syntax>
+        <name>ASIN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ASIN returns the arc sine of n. The argument n must be in the range of -1 to 1, and the function returns a value in the range of -pi/2 to pi/2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ASIN(.3)
+            </example>
+            <example>
+                ASIN(-.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ATAN(NUMERIC)</syntax>
+        <name>ATAN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ATAN returns the arc tangent of n. The argument n can be in an unbounded range and returns a value in the range of -pi/2 to pi/2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ATAN(-.3)
+            </example>
+            <example>
+                ATAN(-.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ATAN2(NUMERIC, NUMERIC)</syntax>
+        <name>ATAN2</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>
+            <arg optional="false">IS_NUMERIC</arg>
+        </args>
+        <description>
+            ATAN2 returns the arc tangent of n1 and n2. The argument n1 can be in an unbounded range and returns a value in the range of -pi to pi, depending on the signs of n1 and n2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ATAN2(.3, .2)
+            </example>
+            <example>
+                ATAN2(-.3, .2)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC BITAND(NUMERIC, NUMERIC)</syntax>
+        <name>BITAND</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            The BITAND function treats its inputs and its output as vectors of bits; the output is the bitwise AND of the inputs.
+            The types of expr1 and expr2 are NUMERIC, and the result is of type NUMERIC. If either argument to BITAND is NULL, the result is NULL.
+            The arguments must be in the range -(2^(n-1)) .. ((2^(n-1))-1). If an argument is out of this range, the result is undefined.
+            The result is computed in several steps. First, each argument A is replaced with the value SIGN(A)*FLOOR(ABS(A)). This conversion has the effect of truncating each argument towards zero. Next, each argument A (which must now be an integer value) is converted to an n-bit two's complement binary integer value. The two bit values are combined using a bitwise AND operation. Finally, the resulting n-bit two's complement value is converted back to NUMERIC.
+        </description>
+        <examples>
+            <example>
+                BITAND(6,3)
+            </example>
+            <example>
+                BITAND(BIN_TO_NUM(1,1,0),BIN_TO_NUM(0,1,1)) 
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC CEIL(NUMERIC)</syntax>
+        <name>CEIL</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            CEIL returns the smallest integer that is greater than or equal to n. The number n can always be written as the difference of an integer k and a positive fraction f such that f in [0, 1) and n = k - f. The value of CEIL is the integer k. Thus, the value of CEIL is n itself if and only if n is precisely an integer.
+        </description>
+        <examples>
+            <example>
+                CEIL(-15.1234)
+            </example>
+            <example>
+                CEIL(15.1234)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC COS(NUMERIC)</syntax>
+        <name>COS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            COS returns the cosine of n (an angle expressed in radians).
+        </description>
+        <examples>
+            <example>
+                COS(180 * 3.14159265359/180)
+            </example>
+            <example>
+                COS(-180 * 3.14159265359/180)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC COSH(NUMERIC)</syntax>
+        <name>COSH</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            COSH returns the hyperbolic cosine of n.
+        </description>
+        <examples>
+            <example>
+                COSH(0)
+            </example>
+            <example>
+                COSH(-15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC EXP(NUMERIC)</syntax>
+        <name>EXP</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            EXP returns e raised to the nth power, where e = 2.71828183... . The function returns a value of the same type as the argument.
+        </description>
+        <examples>
+            <example>
+                EXP(-15)
+            </example>
+            <example>
+                EXP(4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC FLOOR(NUMERIC)</syntax>
+        <name>FLOOR</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            FLOOR returns the largest integer equal to or less than n. The number n can always be written as the sum of an integer k and a positive fraction f such that f in [0,1) and n = k + f. The value of FLOOR is the integer k. Thus, the value of FLOOR is n itself if and only if n is precisely an integer.
+        </description>
+        <examples>
+            <example>
+                FLOOR(15.7)
+            </example>
+            <example>
+                FLOOR(-15.7)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC LN(NUMERIC)</syntax>
+        <name>LN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            LN returns the natural logarithm of n, where n is greater than 0.
+        </description>
+        <examples>
+            <example>
+                LN(95)
+            </example>
+            <example>
+                LN(95.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC LOG(NUMERIC, NUMERIC)</syntax>
+        <name>LOG</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            LOG returns the logarithm, base n2, of n1. The base n1 can be any positive value other than 0 or 1 and n2 can be any positive value.
+        </description>
+        <examples>
+            <example>
+                LOG(10,100)
+            </example>
+            <example>
+                LOG(2,1024)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC MOD(NUMERIC)</syntax>
+        <name>MOD</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            MOD returns the remainder of n2 divided by n1. Returns n2 if n1 is 0.
+        </description>
+        <examples>
+            <example>
+                MOD(11,4)
+            </example>
+            <example>
+                MOD(11.222,-4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC NANVL(NUMERIC, NUMERIC)</syntax>
+        <name>NANVL</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            The NANVL function is useful only for floating-point numbers of type BINARY_FLOAT or BINARY_DOUBLE. It instructs Oracle Database to return an alternative value n1 if the input value n2 is NaN (not a number). If n2 is not NaN, then Oracle returns n2.
+        </description>
+        <examples>
+            <example>
+                NANVL(11,4)
+            </example>
+            <example>
+                NANVL(11.222,-4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC POWER(NUMERIC, NUMERIC)</syntax>
+        <name>POWER</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            POWER returns n2 raised to the n1 power. The base n2 and the exponent n1 can be any numbers, but if n2 is negative, then n1 must be an integer.
+        </description>
+        <examples>
+            <example>
+                POWER(-3, 2)
+            </example>
+            <example>
+                POWER(3, 95.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC REMAINDER(NUMERIC, NUMERIC)</syntax>
+        <name>REMAINDER</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>  
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            REMAINDER returns the remainder of n2 divided by n1.
+        </description>
+        <examples>
+            <example>
+                REMAINDER(95, 5)
+            </example>
+            <example>
+                REMAINDER(-95.123, .5)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ROUND(NUMERIC, [INTEGER])</syntax>
+        <name>ROUND</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="true">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ROUND returns n rounded to integer places to the right of the decimal point. If you omit integer, then n is rounded to zero places. If integer is negative, then n is rounded off to the left of the decimal point.
+            ROUND(n, integer) = FLOOR(n * POWER(10, integer) + 0.5) * POWER(10, -integer)
+        </description>
+        <examples>
+            <example>
+                ROUND(15.193)
+            </example>
+            <example>
+                ROUND(15.193,-1)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC SIGN(NUMERIC)</syntax>
+        <name>SIGN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SIGN returns the sign of n. This function takes as an argument any numeric data type, or any nonnumeric data type that can be implicitly converted to NUMERIC, and returns NUMERIC.
+        </description>
+        <examples>
+            <example>
+                SIGN(-15)
+            </example>
+            <example>
+                SIGN(15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC SIN(NUMERIC)</syntax>
+        <name>SIN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SIN returns the sine of n (an angle expressed in radians).
+        </description>
+        <examples>
+            <example>
+                SIN(30 * 3.14159265359/180)
+            </example>
+            <example>
+                SIN(-30 * 3.14159265359)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC SINH(NUMERIC)</syntax>
+        <name>SINH</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SINH returns the hyperbolic sine of n.
+        </description>
+        <examples>
+            <example>
+                SINH(1)
+            </example>
+            <example>
+                SINH(-1.11)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC SQRT(NUMERIC)</syntax>
+        <name>SQRT</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SQRT returns the square root of n.
+        </description>
+        <examples>
+            <example>
+                SQRT(26)
+            </example>
+            <example>
+                SQRT(26.12345)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING CHR(NUMERIC [USING NCHAR_CS])</syntax>
+        <name>CHR</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            CHR returns the character having the binary equivalent to n as a VARCHAR2 value in either the database character set. 
+            --if you specify USING NCHAR_CS, the national character set.
+        </description>
+        <examples>
+            <example>
+                CHR(67)||CHR(65)||CHR(84)|| CHR (196 USING NCHAR_CS)
+            </example>
+            <example>
+                CHR(41378)||CHR(41379)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING CONCAT(STRING, STRING)</syntax>
+        <name>CONCAT</name>
+        <args>
+            <arg optional="false">STRING</arg>    
+            <arg optional="false">STRING</arg> 
+        </args>
+        <description>
+            CONCAT returns char1 concatenated with char2. Both char1 and char2 can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The string returned is in the same character set as char1. Its data type depends on the data types of the arguments.
+        </description>
+        <examples>
+            <example>
+                 CONCAT(CONCAT('last_name', '''s job category is '), 'job_id')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING INITCAP(STRING)</syntax>
+        <name>INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>      
+        </args>
+        <description>
+            INITCAP returns char, with the first letter of each word in uppercase, all other letters in lowercase. Words are delimited by white space or characters that are not alphanumeric.
+        </description>
+        <examples>
+            <example>
+                INITCAP('the soap')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LOWER(STRING)</syntax>
+        <name>LOWER</name>
+        <args>
+            <arg optional="false">STRING</arg>    
+        </args>
+        <description>
+            LOWER returns char, with all letters lowercase. char can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The return value is the same data type as char. The database sets the case of the characters based on the binary mapping defined for the underlying character set. For linguistic-sensitive lowercase, refer to NLS_LOWER.
+        </description>
+        <examples>
+            <example>
+                LOWER('MR. SCOTT MCMILLAN')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LPAD(STRING, INTEGER [, STRING])</syntax>
+        <name>LPAD</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">INTEGER</arg>
+            <arg optional="true">STRING</arg>
+        </args>
+        <description>
+            LPAD returns expr1, left-padded to length n characters with the sequence of characters in expr2. This function is useful for formatting the output of a query.
+        </description>
+        <examples>
+            <example>
+                LPAD('Page 1',15,'*.')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LTRIM(STRING [,STRING])</syntax>
+        <name>LTRIM</name>
+        <args>
+            <arg optional="false">STRING</arg>      
+        </args>
+        <description>
+            LTRIM removes from the left end of char all of the characters contained in set. If you do not specify set, then it defaults to a single blank.
+        </description>
+        <examples>
+            <example>
+                LTRIM('[=====]BROWNING[=====]', '[]=')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NCHR(NUMERIC)</syntax>
+        <name>NCHR</name>
+        <args>
+            <arg optional="false">NUMERIC</arg>
+        </args>
+        <description>
+            LOWER returns char, with all letters lowercase. char can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The return value is the same data type as char. The database sets the case of the characters based on the binary mapping defined for the underlying character set. For linguistic-sensitive lowercase, refer to NLS_LOWER.
+        </description>
+        <examples>
+            <example>
+                NCHR(187)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NLS_INITCAP(STRING [, STRING])</syntax>
+        <name>NLS_INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>        
+        </args>
+        <description>
+            NLS_INITCAP returns char, with the first letter of each word in uppercase, all other letters in lowercase. Words are delimited by white space or characters that are not alphanumeric.
+        </description>
+        <examples>
+            <example>
+                NLS_INITCAP('ijsland')
+            </example>
+            <example>
+                NLS_INITCAP('ijsland', 'NLS_SORT = XDutch')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NLS_LOWER(STRING [, STRING])</syntax>
+        <name>NLS_LOWER</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>        
+        </args>
+        <description>
+            NLS_LOWER returns char, with all letters lowercase.
+        </description>
+        <examples>
+            <example>
+                NLS_LOWER('NOKTASINDA')
+            </example>
+            <example>
+                NLS_LOWER('NOKTASINDA', 'NLS_SORT = XTurkish')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NLS_UPPER(STRING [, STRING])</syntax>
+        <name>NLS_UPPER</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>        
+        </args>
+        <description>
+            NLS_UPPER returns char, with all letters uppercase.
+        </description>
+        <examples>
+            <example>
+                NLS_INITCAP('ijsland')
+            </example>
+            <example>
+                NLS_INITCAP('ijsland', 'NLS_SORT = XDutch')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NLS_INITCAP(STRING [, STRING])</syntax>
+        <name>NLS_INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>        
+        </args>
+        <description>
+            NLS_INITCAP returns char, with the first letter of each word in uppercase, all other letters in lowercase. Words are delimited by white space or characters that are not alphanumeric.
+        </description>
+        <examples>
+            <example>
+                NLS_UPPER('große')
+            </example>
+            <example>
+                NLS_UPPER('große', 'NLS_SORT = XGerman')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NLSSORT(STRING [, STRING])</syntax>
+        <name>NLS_INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>        
+        </args>
+        <description>
+            NLSSORT returns a collation key for the character value char and an explicitly or implicitly specified collation. A collation key is a string of bytes used to sort char according to the specified collation. The property of the collation keys is that mutual ordering of two such keys generated for the given collation when compared according to their binary order is the same as mutual ordering of the source character values when compared according to the given collation.
+        </description>
+        <examples>
+            <example>
+                CREATE TABLE test (name VARCHAR2(15));
+                INSERT INTO test VALUES ('Gaardiner');
+                INSERT INTO test VALUES ('Gaberd');
+                INSERT INTO test VALUES ('Gaasten');
+                
+                SELECT * FROM test ORDER BY name;
+                SELECT * FROM test ORDER BY NLSSORT(name, 'NLS_SORT = XDanish');
+                
+                SELECT * FROM test WHERE name > 'Gaberd' ORDER BY name;
+                SELECT * FROM test WHERE NLSSORT(name, 'NLS_SORT = XDanish') >  NLSSORT('Gaberd', 'NLS_SORT = XDanish') ORDER BY name;
+                
+                ALTER SESSION SET NLS_COMP = 'LINGUISTIC';
+                ALTER SESSION SET NLS_SORT = 'XDanish';
+                SELECT * FROM test WHERE name > 'Gaberd' ORDER BY name;
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING REGEXP_REPLACE(STRING source_char, STRING pattern [,STRING replace_string] [,INTEGER position] [,INTEGER occurrence] [,STRING  match_pattern])</syntax>
+        <name>REGEXP_REPLACE</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">STRING</arg>      
+            <arg optional="true">STRING</arg>      
+            <arg optional="true">INTEGER</arg>      
+            <arg optional="true">INTEGER</arg>      
+            <arg optional="true">STRING</arg>      
+        </args>
+        <description>
+            source_char is a character expression that serves as the search value. It is commonly a character column and can be of any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB or NCLOB.
+            pattern is the regular expression. It is usually a text literal and can be of any of the data types CHAR, VARCHAR2, NCHAR, or NVARCHAR2. It can contain up to 512 bytes. If the data type of pattern is different from the data type of source_char, then Oracle Database converts pattern to the data type of source_char. For a listing of the operators you can specify in pattern, refer to Appendix D, "Oracle Regular Expression Support".
+            replace_string can be of any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. If replace_string is a CLOB or NCLOB, then Oracle truncates replace_string to 32K. The replace_string can contain up to 500 backreferences to subexpressions in the form \n, where n is a number from 1 to 9. If you want to include a backslash (\) in replace_string, then you must precede it with the escape character, which is also a backslash. For example, to replace \2 you would enter \\2. For more information on backreference expressions, refer to the notes to "Oracle Regular Expression Support", Table D-1.
+            position is a positive integer indicating the character of source_char where Oracle should begin the search. The default is 1, meaning that Oracle begins the search at the first character of source_char.
+            occurrence is a nonnegative integer indicating the occurrence of the replace operation:
+                If you specify 0, then Oracle replaces all occurrences of the match.
+                If you specify a positive integer n, then Oracle replaces the nth occurrence.
+                If occurrence is greater than 1, then the database searches for the second occurrence beginning with the first character following the first occurrence of pattern, and so forth. This behavior is different from the INSTR function, which begins its search for the second occurrence at the second character of the first occurrence.
+            match_parameter is a text literal that lets you change the default matching behavior of the function. The behavior of this parameter is the same for this function as for REGEXP_COUNT. Refer to REGEXP_COUNT for detailed information.
+        </description>
+        <examples>
+            <example>
+                REGEXP_REPLACE(phone_number, '([[:digit:]]{3})\.([[:digit:]]{3})\.([[:digit:]]{4})', '(\1) \2-\3')
+            </example>
+            <example>
+                REGEXP_REPLACE(country_name, '(.)', '\1 ')
+            </example>
+            <example>
+                REGEXP_REPLACE('500   Oracle     Parkway,    Redwood  Shores, CA', '( ){2,}', ' ')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING REGEXP_SUBSTR(STRING source_char, STRING pattern [,INTEGER position] [,INTEGER occurrence] [,STRING  match_pattern] [,INTEGER  subexpr])</syntax>
+        <name>REGEXP_SUBSTR</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">STRING</arg>          
+            <arg optional="true">INTEGER</arg>      
+            <arg optional="true">INTEGER</arg>      
+            <arg optional="true">STRING</arg>   
+            <arg optional="true">INTEGER</arg>      
+        </args>
+        <description>
+            source_char is a character expression that serves as the search value. It is commonly a character column and can be of any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB.
+            pattern is the regular expression. It is usually a text literal and can be of any of the data types CHAR, VARCHAR2, NCHAR, or NVARCHAR2. It can contain up to 512 bytes. If the data type of pattern is different from the data type of source_char, then Oracle Database converts pattern to the data type of source_char. For a listing of the operators you can specify in pattern, refer to Appendix D, "Oracle Regular Expression Support".
+            position is a positive integer indicating the character of source_char where Oracle should begin the search. The default is 1, meaning that Oracle begins the search at the first character of source_char.
+            occurrence is a positive integer indicating which occurrence of pattern in source_char Oracle should search for. The default is 1, meaning that Oracle searches for the first occurrence of pattern.
+            If occurrence is greater than 1, then the database searches for the second occurrence beginning with the first character following the first occurrence of pattern, and so forth. This behavior is different from the SUBSTR function, which begins its search for the second occurrence at the second character of the first occurrence.
+            match_parameter is a text literal that lets you change the default matching behavior of the function. The behavior of this parameter is the same for this function as for REGEXP_COUNT. Refer to REGEXP_COUNT for detailed information.
+            For a pattern with subexpressions, subexpr is a nonnegative integer from 0 to 9 indicating which subexpression in pattern is to be returned by the function. This parameter has the same semantics that it has for the REGEXP_INSTR function. Refer to REGEXP_INSTR for more information.
+        </description>
+        <examples>
+            <example>
+                REGEXP_SUBSTR('500 Oracle Parkway, Redwood Shores, CA', ',[^,]+,')
+            </example>
+            <example>
+                REGEXP_SUBSTR('http://www.example.com/products', 'http://([[:alnum:]]+\.?){3,4}/?')
+            </example>
+            <example>
+                REGEXP_SUBSTR('1234567890', '(123)(4(56)(78))', 1, 1, 'i', 1) 
+            </example>
+            <example>
+                REGEXP_SUBSTR('1234567890', '(123)(4(56)(78))', 1, 1, 'i', 4) 
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING REPLACE(STRING search_string [, STRING replacement_string])</syntax>
+        <name>REPLACE</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="true">STRING</arg>             
+        </args>
+        <description>
+            REPLACE returns char with every occurrence of search_string replaced with replacement_string. If replacement_string is omitted or null, then all occurrences of search_string are removed. If search_string is null, then char is returned.
+            Both search_string and replacement_string, as well as char, can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The string returned is in the same character set as char. The function returns VARCHAR2 if the first argument is not a LOB and returns CLOB if the first argument is a LOB.
+            REPLACE provides functionality related to that provided by the TRANSLATE function. TRANSLATE provides single-character, one-to-one substitution. REPLACE lets you substitute one string for another as well as to remove character strings.
+        </description>
+        <examples>
+            <example>
+                REPLACE('JACK and JUE','J','BL')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING RPAD(STRING expr1, INTEGER n [, STRING expr2])</syntax>
+        <name>RPAD</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">INTEGER</arg>     
+            <arg optional="true">STRING</arg>      
+        </args>
+        <description>
+            RPAD returns expr1, right-padded to length n characters with expr2, replicated as many times as necessary. This function is useful for formatting the output of a query.
+        </description>
+        <examples>
+            <example>
+                RPAD(' ', 10, '*')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING RTRIM(STRING expr [, STRING set])</syntax>
+        <name>RTRIM</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+            <arg optional="true">STRING</arg>      
+        </args>
+        <description>
+            RTRIM removes from the right end of char all of the characters that appear in set. This function is useful for formatting the output of a query.
+        </description>
+        <examples>
+            <example>
+                RTRIM('[=====]>BROWNING[=====]', '[]=')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>STRING SOUNDEX(STRING expr)</syntax>
+        <name>SOUNDEX</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+            <arg optional="true">STRING</arg>      
+        </args>
+        <description>
+            SOUNDEX returns a character string containing the phonetic representation of char. This function lets you compare words that are spelled differently, but sound alike in English.
+        </description>
+        <examples>
+            <example>
+                SOUNDEX('SMYTHE')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>
+            STRING SUBSTR(STRING expr, INTEGER position [, INTEGER substring_length])
+            STRING SUBSTRB(STRING expr, INTEGER position [, INTEGER substring_length])
+            STRING SUBSTRC(STRING expr, INTEGER position [, INTEGER substring_length])
+            STRING SUBSTR2(STRING expr, INTEGER position [, INTEGER substring_length])
+            STRING SUBSTR4(STRING expr, INTEGER position [, INTEGER substring_length])
+        </syntax>
+        <name>SUBSTR</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+            <arg optional="false">INTEGER</arg>   
+            <arg optional="true">INTEGER</arg>  
+        </args>
+        <description>
+            The SUBSTR functions return a portion of char, beginning at character position, substring_length characters long. SUBSTR calculates lengths using characters as defined by the input character set. SUBSTRB uses bytes instead of characters. SUBSTRC uses Unicode complete characters. SUBSTR2 uses UCS2 code points. SUBSTR4 uses UCS4 code points.
+                If position is 0, then it is treated as 1.
+                If position is positive, then Oracle Database counts from the beginning of char to find the first character.
+                If position is negative, then Oracle counts backward from the end of char.
+                If substring_length is omitted, then Oracle returns all characters to the end of char. If substring_length is less than 1, then Oracle returns null.
+        </description>
+        <examples>
+            <example>
+                SUBSTR('ABCDEFG',3,4)
+            </example>
+            <example>
+                SUBSTR('ABCDEFG',-5,4)
+            </example>
+            <example>
+                SUBSTRB('ABCDEFG',5,4.2)
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>
+            STRING TRANSLATE(STRING expr, STRING from_string, STRING to_string)
+            STRING TRANSLATE(STRING expr [, USING (CHAR_CS | NCHAR_CS)])
+        </syntax>
+        <name>TRANSLATE</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+            <arg optional="false">STRING</arg> 
+            <arg optional="false">STRING</arg> 
+        </args>
+        <description>
+            TRANSLATE returns expr with all occurrences of each character in from_string replaced by its corresponding character in to_string. Characters in expr that are not in from_string are not replaced. The argument from_string can contain more characters than to_string. In this case, the extra characters at the end of from_string have no corresponding characters in to_string. If these extra characters appear in expr, then they are removed from the return value.
+        </description>
+        <examples>
+            <example>
+                TRANSLATE('SQL*Plus User''s Guide', ' */''', '___')
+            </example>
+            <example>
+                TRANSLATE ('SQL*Plus User''s Guide' USING CHAR_CS)
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>
+            STRING TRIM([[LEADING|TRAILING|BOTH] STRING trim_character] FROM STRING trim_source)
+        </syntax>
+        <name>TRANSLATE</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+            <arg optional="true">STRING</arg> 
+        </args>
+        <description>
+            TRIM enables you to trim leading or trailing characters (or both) from a character string. If trim_character or trim_source is a character literal, then you must enclose it in single quotation marks.
+        </description>
+        <examples>
+            <example>
+                TRIM(BOTH 0 FROM '00001212100020000')
+            </example>
+            <example>
+                TRIM(LEADING 'a' FROM '00001212100020000')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>
+            STRING UPPER(STRING char)
+        </syntax>
+        <name>UPPER</name>
+        <args>
+            <arg optional="false">STRING</arg>  
+        </args>
+        <description>
+            UPPER returns char, with all letters uppercase.
+        </description>
+        <examples>
+            <example>
+                 UPPER(last_name)
+            </example>
+        </examples>
+    </function>
+
+</functions>

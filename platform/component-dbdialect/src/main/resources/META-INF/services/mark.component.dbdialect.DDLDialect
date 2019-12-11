@@ -1,0 +1,5 @@
+mark.component.dbdialect.db2.DB2DDLDialect
+mark.component.dbdialect.mysql.MySQLDDLDialect
+mark.component.dbdialect.oracle.OracleDDLDialect
+mark.component.dbdialect.postgresql.PostgreSQLDDLDialect
+mark.component.dbdialect.gaussdb.GaussDB100DDLDialect

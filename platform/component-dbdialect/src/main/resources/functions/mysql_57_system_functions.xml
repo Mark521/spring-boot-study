@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <syntax>NUMBER ABS(NUMBER)</syntax>
+        <name>ABS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ABS returns the absolute value of n.
+            This function takes as an argument any numeric data type or any nonnumeric data type that can be implicitly converted to a numeric data type. The function returns the same data type as the numeric data type of the argument.
+        </description>
+        <examples>
+            <example>
+                ABS(-15)
+            </example>
+            <example>
+                ABS(-15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMERIC ACOS(NUMERIC)</syntax>
+        <name>ACOS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ACOS returns the arc cosine of n. The argument n must be in the range of -1 to 1, and the function returns a value in the range of 0 to pi, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ACOS(.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER ASIN(NUMBER)</syntax>
+        <name>ASIN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ASIN returns the arc sine of n. The argument n must be in the range of -1 to 1, and the function returns a value in the range of -pi/2 to pi/2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ASIN(.3)
+            </example>
+            <example>
+                ASIN(-.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER ATAN(NUMBER)</syntax>
+        <name>ATAN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ATAN returns the arc tangent of n. The argument n can be in an unbounded range and returns a value in the range of -pi/2 to pi/2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ATAN(-.3)
+            </example>
+            <example>
+                ATAN(-.3)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER ATAN2(NUMBER, NUMBER)</syntax>
+        <name>ATAN2</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>
+            <arg optional="false">IS_NUMERIC</arg>
+        </args>
+        <description>
+            ATAN2 returns the arc tangent of n1 and n2. The argument n1 can be in an unbounded range and returns a value in the range of -pi to pi, depending on the signs of n1 and n2, expressed in radians.
+        </description>
+        <examples>
+            <example>
+                ATAN2(.3, .2)
+            </example>
+            <example>
+                ATAN2(-.3, .2)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER BITAND(NUMBER, NUMBER)</syntax>
+        <name>BITAND</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            The BITAND function treats its inputs and its output as vectors of bits; the output is the bitwise AND of the inputs.
+            The types of expr1 and expr2 are NUMBER, and the result is of type NUMBER. If either argument to BITAND is NULL, the result is NULL.
+            The arguments must be in the range -(2^(n-1)) .. ((2^(n-1))-1). If an argument is out of this range, the result is undefined.
+            The result is computed in several steps. First, each argument A is replaced with the value SIGN(A)*FLOOR(ABS(A)). This conversion has the effect of truncating each argument towards zero. Next, each argument A (which must now be an integer value) is converted to an n-bit two's complement binary integer value. The two bit values are combined using a bitwise AND operation. Finally, the resulting n-bit two's complement value is converted back to NUMBER.
+        </description>
+        <examples>
+            <example>
+                BITAND(6,3)
+            </example>
+            <example>
+                BITAND(BIN_TO_NUM(1,1,0),BIN_TO_NUM(0,1,1)) 
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER CEIL(NUMBER)</syntax>
+        <name>CEIL</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            CEIL returns the smallest integer that is greater than or equal to n. The number n can always be written as the difference of an integer k and a positive fraction f such that f in [0, 1) and n = k - f. The value of CEIL is the integer k. Thus, the value of CEIL is n itself if and only if n is precisely an integer.
+        </description>
+        <examples>
+            <example>
+                CEIL(-15.1234)
+            </example>
+            <example>
+                CEIL(15.1234)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER COS(NUMBER)</syntax>
+        <name>COS</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            COS returns the cosine of n (an angle expressed in radians).
+        </description>
+        <examples>
+            <example>
+                COS(180 * 3.14159265359/180)
+            </example>
+            <example>
+                COS(-180 * 3.14159265359/180)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER COSH(NUMBER)</syntax>
+        <name>COSH</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            COSH returns the hyperbolic cosine of n.
+        </description>
+        <examples>
+            <example>
+                COSH(0)
+            </example>
+            <example>
+                COSH(-15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER EXP(NUMBER)</syntax>
+        <name>EXP</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            EXP returns e raised to the nth power, where e = 2.71828183... . The function returns a value of the same type as the argument.
+        </description>
+        <examples>
+            <example>
+                EXP(-15)
+            </example>
+            <example>
+                EXP(4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER FLOOR(NUMBER)</syntax>
+        <name>FLOOR</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            FLOOR returns the largest integer equal to or less than n. The number n can always be written as the sum of an integer k and a positive fraction f such that f in [0,1) and n = k + f. The value of FLOOR is the integer k. Thus, the value of FLOOR is n itself if and only if n is precisely an integer.
+        </description>
+        <examples>
+            <example>
+                FLOOR(15.7)
+            </example>
+            <example>
+                FLOOR(-15.7)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER LN(NUMBER)</syntax>
+        <name>LN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            LN returns the natural logarithm of n, where n is greater than 0.
+        </description>
+        <examples>
+            <example>
+                LN(95)
+            </example>
+            <example>
+                LN(95.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER LOG(NUMBER, NUMBER)</syntax>
+        <name>LOG</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            LOG returns the logarithm, base n2, of n1. The base n1 can be any positive value other than 0 or 1 and n2 can be any positive value.
+        </description>
+        <examples>
+            <example>
+                LOG(10,100)
+            </example>
+            <example>
+                LOG(2,1024)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER MOD(NUMBER)</syntax>
+        <name>MOD</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            MOD returns the remainder of n2 divided by n1. Returns n2 if n1 is 0.
+        </description>
+        <examples>
+            <example>
+                MOD(11,4)
+            </example>
+            <example>
+                MOD(11.222,-4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER NANVL(NUMBER, NUMBER)</syntax>
+        <name>NANVL</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            The NANVL function is useful only for floating-point numbers of type BINARY_FLOAT or BINARY_DOUBLE. It instructs Oracle Database to return an alternative value n1 if the input value n2 is NaN (not a number). If n2 is not NaN, then Oracle returns n2.
+        </description>
+        <examples>
+            <example>
+                NANVL(11,4)
+            </example>
+            <example>
+                NANVL(11.222,-4.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER POWER(NUMBER, NUMBER)</syntax>
+        <name>POWER</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            POWER returns n2 raised to the n1 power. The base n2 and the exponent n1 can be any numbers, but if n2 is negative, then n1 must be an integer.
+        </description>
+        <examples>
+            <example>
+                POWER(-3, 2)
+            </example>
+            <example>
+                POWER(3, 95.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER REMAINDER(NUMBER, NUMBER)</syntax>
+        <name>REMAINDER</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>  
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            REMAINDER returns the remainder of n2 divided by n1.
+        </description>
+        <examples>
+            <example>
+                REMAINDER(95, 5)
+            </example>
+            <example>
+                REMAINDER(-95.123, .5)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER ROUND(NUMBER, [INTEGER])</syntax>
+        <name>ROUND</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+            <arg optional="true">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            ROUND returns n rounded to integer places to the right of the decimal point. If you omit integer, then n is rounded to zero places. If integer is negative, then n is rounded off to the left of the decimal point.
+            ROUND(n, integer) = FLOOR(n * POWER(10, integer) + 0.5) * POWER(10, -integer)
+        </description>
+        <examples>
+            <example>
+                ROUND(15.193)
+            </example>
+            <example>
+                ROUND(15.193,-1)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER SIGN(NUMBER)</syntax>
+        <name>SIGN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SIGN returns the sign of n. This function takes as an argument any numeric data type, or any nonnumeric data type that can be implicitly converted to NUMBER, and returns NUMBER.
+        </description>
+        <examples>
+            <example>
+                SIGN(-15)
+            </example>
+            <example>
+                SIGN(15.123)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER SIN(NUMBER)</syntax>
+        <name>SIN</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SIN returns the sine of n (an angle expressed in radians).
+        </description>
+        <examples>
+            <example>
+                SIN(30 * 3.14159265359/180)
+            </example>
+            <example>
+                SIN(-30 * 3.14159265359)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER SINH(NUMBER)</syntax>
+        <name>SINH</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SINH returns the hyperbolic sine of n.
+        </description>
+        <examples>
+            <example>
+                SINH(1)
+            </example>
+            <example>
+                SINH(-1.11)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER SQRT(NUMBER)</syntax>
+        <name>SQRT</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            SQRT returns the square root of n.
+        </description>
+        <examples>
+            <example>
+                SQRT(26)
+            </example>
+            <example>
+                SQRT(26.12345)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING CHR(NUMBER [USING NCHAR_CS])</syntax>
+        <name>CHR</name>
+        <args>
+            <arg optional="false">IS_NUMERIC</arg>    
+        </args>
+        <description>
+            CHR returns the character having the binary equivalent to n as a VARCHAR2 value in either the database character set. 
+            --if you specify USING NCHAR_CS, the national character set.
+        </description>
+        <examples>
+            <example>
+                CHR(67)||CHR(65)||CHR(84)|| CHR (196 USING NCHAR_CS)
+            </example>
+            <example>
+                CHR(41378)||CHR(41379)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING CONCAT(STRING, STRING)</syntax>
+        <name>CONCAT</name>
+        <args>
+            <arg optional="false">STRING</arg>    
+            <arg optional="false">STRING</arg> 
+        </args>
+        <description>
+            CONCAT returns char1 concatenated with char2. Both char1 and char2 can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The string returned is in the same character set as char1. Its data type depends on the data types of the arguments.
+        </description>
+        <examples>
+            <example>
+                 CONCAT(CONCAT('last_name', '''s job category is '), 'job_id')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING INITCAP(STRING)</syntax>
+        <name>INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>      
+        </args>
+        <description>
+            INITCAP returns char, with the first letter of each word in uppercase, all other letters in lowercase. Words are delimited by white space or characters that are not alphanumeric.
+        </description>
+        <examples>
+            <example>
+                INITCAP('the soap')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LOWER(STRING)</syntax>
+        <name>LOWER</name>
+        <args>
+            <arg optional="false">STRING</arg>    
+        </args>
+        <description>
+            LOWER returns char, with all letters lowercase. char can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The return value is the same data type as char. The database sets the case of the characters based on the binary mapping defined for the underlying character set. For linguistic-sensitive lowercase, refer to NLS_LOWER.
+        </description>
+        <examples>
+            <example>
+                LOWER('MR. SCOTT MCMILLAN')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LPAD(STRING, INTEGER [, STRING])</syntax>
+        <name>LPAD</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">INTEGER</arg>
+            <arg optional="true">STRING</arg>
+        </args>
+        <description>
+            LPAD returns expr1, left-padded to length n characters with the sequence of characters in expr2. This function is useful for formatting the output of a query.
+        </description>
+        <examples>
+            <example>
+                LPAD('Page 1',15,'*.')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING LTRIM(STRING [,STRING])</syntax>
+        <name>LTRIM</name>
+        <args>
+            <arg optional="false">STRING</arg>      
+        </args>
+        <description>
+            LTRIM removes from the left end of char all of the characters contained in set. If you do not specify set, then it defaults to a single blank.
+        </description>
+        <examples>
+            <example>
+                LTRIM('[=====]BROWNING[=====]', '[]=')
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>STRING NCHR(NUMBER)</syntax>
+        <name>NCHR</name>
+        <args>
+            <arg optional="false">NUMBER</arg>
+        </args>
+        <description>
+            LOWER returns char, with all letters lowercase. char can be any of the data types CHAR, VARCHAR2, NCHAR, NVARCHAR2, CLOB, or NCLOB. The return value is the same data type as char. The database sets the case of the characters based on the binary mapping defined for the underlying character set. For linguistic-sensitive lowercase, refer to NLS_LOWER.
+        </description>
+        <examples>
+            <example>
+                NCHR(187)
+            </example>
+        </examples>
+    </function>
+    <function>
+        <syntax>NUMBER REGEXP_REPLACE(STRING, STRING, STRING, STRING)</syntax>
+        <name>REGEXP_REPLACE</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">STRING</arg>      
+            <arg optional="false">STRING</arg>      
+            <arg optional="false">STRING</arg>      
+        </args>
+        <description>
+            INITCAP returns char, with the first letter of each word in uppercase, all other letters in lowercase. Words are delimited by white space or characters that are not alphanumeric.
+        </description>
+        <examples>
+            <example>
+                INITCAP('the soap')
+            </example>
+        </examples>
+    </function>
+    
+    <function>
+        <syntax>NUMBER NLS_INITCAP(NUMBER)</syntax>
+        <name>NLS_INITCAP</name>
+        <args>
+            <arg optional="false">STRING</arg>
+            <arg optional="false">STRING</arg>      
+            <arg optional="false">STRING</arg>      
+            <arg va="false">STRING</arg>      
+        </args>
+    </function>
+
+</functions>
