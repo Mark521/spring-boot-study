@@ -1,6 +1,7 @@
 package mark.component.dbmodel.qo;
 
 import mark.component.dbmodel.constans.DatabaseType;
+import mark.component.dbmodel.constans.RetrieveRule;
 
 public class DataSourceQo {
 
@@ -13,9 +14,15 @@ public class DataSourceQo {
     /**
      * 是否分页
      */
-    private boolean isPaging;
+    private boolean isPaging = true;
     private Integer page = 1;
     private Integer rows = 10;
+
+    /**
+     * 查询的级别
+     * RetrieveRule
+     */
+    private Long tableInfoLevel = RetrieveRule.TABLE;
 
     /**
      * 查询信息
@@ -96,6 +103,14 @@ public class DataSourceQo {
 
     public void setRows(Integer rows) {
         this.rows = rows;
+    }
+
+    public Long getTableInfoLevel() {
+        return tableInfoLevel;
+    }
+
+    public void setTableInfoLevel(Long tableInfoLevel) {
+        this.tableInfoLevel = tableInfoLevel;
     }
 
     public Integer getOffset(){

@@ -1,6 +1,7 @@
 package mark.moduledatasource.controller;
 
 import mark.component.dbmodel.constans.DatabaseType;
+import mark.component.dbmodel.constans.RetrieveRule;
 import mark.component.dbmodel.model.Table;
 import mark.component.dbmodel.qo.DataSourceQo;
 import mark.component.dbmodel.service.DataSourceService;
@@ -55,6 +56,7 @@ public class SourceInfoController {
         qo.setSchema(schema);
         qo.setTableName(StringUtils.trim(tableName) + "%");
         qo.setPaging(true);
+        qo.setTableInfoLevel(RetrieveRule.ALL);
         return qo;
     }
 
