@@ -143,16 +143,161 @@ getTime：毫秒数
 3、java.sql.date：对应数据库中的Date的类型
 如何实例化
 对象转换
+4、SimpleDateFormat
+5、Calendar:抽象类
+a-Calendar.getInstance()
+b-创建子类的对象
+
+常用方法：
+get:获取属性值
+set：设置属性值，修改对象的信息
+add：加天数或者属性值
+getTime：日历类——>Date
+setTime：Date——>日历类
 */
 ```
 
+### 2、JDK8的日期时间API
 
+1、原因
+
+应该不能修改日期的信息 
+
+偏移量问题：日期都是从1900年开始的，而月份是从0开始
+
+格式化：格式化对Date有用，Calendar无效
+
+此外，不是线程安全的，不能处理闰秒
+
+2、吸收了joda-time_java.time_java.tim.format
+
+```java
+//LocalDate LocalTime LocalDateTime
+now();//获取当前时间
+of();//指定时间 
+getXXX();//获取属性
+withDayOfMonth();//设置返回日期对象，不改变原对象信息
+plusXXX();//加某个属性指返回日期对象，不改变原对象信息
+minusXXX();//减某个属性指返回日期对象，不改变原对象信息
+```
+
+3、Instant瞬时
+
+```java
+Instant.now();//获取本初子午线的时间值
+instant.toEpochMilli();//获取毫秒数
+Instant.ofEpochMilli();//通过给定毫秒获取实例
+```
+
+4、DataTimeFormatter：类似于SimpleDateFormat
+
+```java
+//实例化ISO_LOCAL_DATE_TIME;
+formatter.format();
+formatter.parse();
+//本地化ofLocalizedDate， ofLocalizedDateTime
+DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+//自定义
+DateTimeFormatter.ofPattern("yyyy-MM-dd");
+```
 
 ## 三、Java比较器
 
+自然排序：Comparable：当前对象大于形参正整数，小于负整数，等于返回0
+
+定制排序：Comparator：零时性的比较
+
 ## 四、System类
+
+系统及的很多属性和方法
+
+exit(0)正常退出，非零异常退出
 
 ## 五、Math类
 
 ## 六、BigInteger和BigDecimal 
+
+## 七、枚举类
+
+方式一、JDK5.0前，自定义枚举类
+
+```java
+class season{
+    private final String name;
+    private final String desc;
+    private seaon(String name, String desc){}
+    public static final seaon SPRING = new Sean(a,b);
+    public static final seaon SPRING = new Sean(a,b);
+    public static final seaon SPRING = new Sean(a,b);
+    public static final seaon SPRING = new Sean(a,b);
+}
+```
+
+方式二、JDK5.0后，可以使用enum关键字定义枚举类
+
+```Java
+//1、提供当前对象，多个对象分号隔开
+//父类不是Object， 是java.lang.Enum
+enum seaon{
+    Spring(a,b),
+    Autumn(c,d);
+}
+```
+
+方法
+
+1、values
+
+2、valueOf(对象名称)：根据提供的名称，返回对应名称的对象，如果没有，则抛异常
+
+3、enmu实现接口，实现抽象方法，相同则在类中定义即可，如果每个对象不同，则需要在每个对象后实现接口信息
+
+## 八、Annotation注解
+
+框架=注解+反射+设计模式
+
+### 1、举例
+
+#### 1、生成文档的注解
+
+#### 2、编译进行格式检查
+
+override deprecated, suppresswarings
+
+#### 3、跟踪代码依赖性，实现配置文件功能
+
+### 2、介绍
+
+jdk5.0新增
+
+代码里的特殊标记，不加入代码的情况下，嵌入添加一些补充信息
+
+### 3、自定义注解
+
+```java
+//①注解生命位@interface
+public @intrface a{
+    //②成员变量，无参数方法形式提供，默认值 default
+    //③可以不提供成员变量，成为标记
+    String[] value();
+}
+//元注解 修饰其他注解的注解
+@Retention只能修饰注解的生命周期；
+    SOURCE：javac时不会保留
+    RUNTIME：加载到内存中
+    CLASS：编译时有，运行时不执行
+@Target：用于修饰注解能修饰那些元素
+    TYPE：
+    FIELD：
+    METHOD：
+    ...
+@Document：表明所修饰的注解被javadoc解释时保留下来
+@Inherited：被修饰的注解具有继承性，继承的子类是否有父类的注解;
+
+JDK8.0新特性;
+可重复注解:@Repeatable,其实还是放到新注解的注解数组中（Retention 和Target需要一直），只是显式的能看到可以重复写;
+类型注解:1.8 @Target新增 
+    TYPE_PARMETER：可注解泛型的变量类
+    TYPE_USE：变量的信息;
+```
 
