@@ -44,15 +44,15 @@
 
 ## 三、结构
 
-### 抽象基类： 
+### 1、抽象基类： 
 
 InputStream、OutputStream、Reader、Writer
 
-### 节点流（文件流）：
+### 2、节点流（文件流）：
 
 File（InputStream、OutputStream、Reader、Writer）
 
-### 缓冲流(处理流)   8192的缓存区
+### 3、缓冲流(处理流)   8192的缓存区
 
 ,提升数据的读取和写入的速度
 
@@ -60,7 +60,7 @@ Buffered（InputStream、OutputStream、Reader、Writer）， flush
 
 ![image-20200506192715063](image-20200506192715063.png)
 
-### 转换流（字节的流转换为字符的流）
+### 4、转换流（字节的流转换为字符的流）
 
 InputStreamReader，OutputStreamWriter
 
@@ -72,5 +72,69 @@ InputStreamReader，OutputStreamWriter
 
 #### 3、字符集
 
-常见的编码： ASCII（美国交换码 7位），ISO-8859-1（拉丁编码，欧洲 8位），GB2312、GBK，Unicode，UTF-8
+常见的编码： ASCII（美国交换码 7位），ISO-8859-1（拉丁编码，欧洲 8位），GB2312（中文编码，最多 两个字节）、GBK（升级，饱满简体繁体， 最多两个字节表示），Unicode：（三个问题：），UTF-8
+
+![image-20200507114628005](image-20200507114628005.png)
+
+### 5、标准输入输出流
+
+System.in System.out   setIn，setOut
+
+```java
+Scanner ;
+System.in;
+InputStreamReader isr = new InputStreamReader(System.in);
+BufferedReader br = new BufferedReader(isr);
+while(true){
+    String line = br.readLine();
+    if("e".equalsIgnoreCase(line) || "exit".equalsIgnoreCase(line)){
+        break;
+    }
+    System.out.println(line.toUpperCase());
+}
+br.close();
+```
+
+### 6、打印流
+
+PrintStream，PrintWriter
+
+提供了一系列重载的print方法 
+
+```java
+FileOutputStream fos = new FileOutputStream(new File("filename"));
+PrintStream ps = new PrintStream(fos, autoFlush:true);
+if(ps != null){
+    System.setOut(ps);
+}
+System.out.print();//会重定向打印到文件内
+```
+
+### 7、数据流：DataInputStream、DataOutputStream
+
+#### 1、作用
+
+方便操作Java语言的基本数据类型和String的数据，可以使用数据流
+
+### 8、对象流：ObjectInputStream，ObjectOutputStream
+
+#### 1、作用
+
+存储基本数据类型的数据或对象的处理流
+
+#### 2、对象的序列化机制：字节数据
+
+#### 3、serialVersionUID：如果没有显示定义静态， JDK会自动生成
+
+对static和transient修饰的变量不进行序列化
+
+### 8、RandomAccessFile：随机访问文件
+
+直接继承自java.lang.Object，实现DataInput，DataOutput
+
+seek偏移量
+
+## 四、NIO.2(JDK7引入)
+
+Path（替换File），Paths（创建Path），Files
 
