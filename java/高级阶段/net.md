@@ -34,18 +34,40 @@ a.getAddress();
 ## 三、实例一
 
 ```java
+//TCP
 public void server(){
 	server = new ServerSocket(8989);
     Socket s = server.accept();
     InputStream in = s.getInputStream();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    
     byte[] buffer = new byte[5];
-    
-    
 }
 public void client(){
-    
+    InetAddress net = new InetAddress("localhost");
+    socket = new Socket(net , 8989);
+    OutputStream out = socket.getOutputStream();
+    out.write("abc".getBytes());
 }
+//read阻塞式的操作  需要 socket.shutdownOutputStream();
+
+//UDP
+public void sender(){
+    DatagramSocket socket = new DatagramSocket();    
+    DatagramPacket packet = new DatagramPacket();
+    socket.send(packet);
+}
+public void reciver(){
+    DatagramSocket socket = new DatagramSocket();
+    DatagramPacket packet = new DatagramPacket();
+}
+```
+
+#### 2、URL类
+
+```java
+URL url = new URL("localhost:8080");
+HttpConnection conn = url.openConnection();
+conn.connect();
+inputstream = conn.getInputStream();
 ```
 
