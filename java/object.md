@@ -463,7 +463,7 @@ Man man = (Man)p;
 class base{
     public void add(int a, int ... b);
 }
-class Sub{
+class Sub extend base{
     public void add(int a, int[] b);
     public void add(int a, int b, int c);  
 }
