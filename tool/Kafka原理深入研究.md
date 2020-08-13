@@ -30,8 +30,6 @@
 
 ##### 4、producer delivery guarantee
 
-四、borker保存消息
-
 #### 四、borker保存消息
 
 ##### 1、存储方式

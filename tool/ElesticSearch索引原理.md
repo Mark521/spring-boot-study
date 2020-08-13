@@ -66,8 +66,6 @@ roaring bitmaps
 
 将postinglist按照65535界限划分，组成键值对（商，余数）
 
-
-
 ##### d、联合索引
 
 1、利用跳表（Skip List）的数据结构快速做与运算
